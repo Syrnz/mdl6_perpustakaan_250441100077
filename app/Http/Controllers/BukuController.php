@@ -92,7 +92,8 @@ class BukuController extends Controller
         $judul = $request->query('judul');
 
         $bukus = DB::select(
-            "SELECT * FROM bukus WHERE judul = '$judul'"
+            'SELECT * FROM bukus WHERE judul = ?',
+            [$judul]
         );
 
         return response()->json($bukus);

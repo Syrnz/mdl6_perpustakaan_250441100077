@@ -31,7 +31,7 @@
                         </div>
 
                         <h3 class="mb-2 text-xl font-bold text-gray-800">
-                            {!! $buku->judul !!}
+                            {{ $buku->judul }}
                         </h3>
 
                         <p class="mb-6 text-sm text-gray-500">

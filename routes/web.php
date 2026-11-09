@@ -20,8 +20,8 @@ Route::middleware('auth')->group(function () {
         ->name('buku.cari');
 
     // Hapus Buku (Pengujian CSRF)
-    Route::get('/buku/{buku}/hapus', [BukuController::class, 'destroy'])
-        ->name('buku.hapus');
+    Route::delete('/buku/{id}', [BukuController::class, 'destroy'])
+        ->name('buku.destroy');
 
     // Detail Peminjaman (Pengujian IDOR)
     Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])
