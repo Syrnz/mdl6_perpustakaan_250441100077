@@ -15,6 +15,18 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
 
+    // Pencarian Buku (Pengujian SQL Injection)
+    Route::get('/buku-cari', [BukuController::class, 'cari'])
+        ->name('buku.cari');
+
+    // Hapus Buku (Pengujian CSRF)
+    Route::get('/buku/{buku}/hapus', [BukuController::class, 'destroy'])
+        ->name('buku.hapus');
+
+    // Detail Peminjaman (Pengujian IDOR)
+    Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])
+        ->name('peminjaman.show');
+
     // Daftar Buku (Admin, Petugas, Siswa)
     Route::get('/buku', [BukuController::class, 'index'])
         ->middleware('permission:lihat daftar buku')

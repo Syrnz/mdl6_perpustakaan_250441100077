@@ -29,6 +29,14 @@ class PeminjamanController extends Controller
         ));
     }
 
+    public function show($id)
+    {
+        $peminjaman = Peminjaman::with(['anggota', 'buku'])
+            ->findOrFail($id);
+
+        return view('peminjaman.detail', compact('peminjaman'));
+    }
+
     public function store(Request $request)
     {
         $request->validate([

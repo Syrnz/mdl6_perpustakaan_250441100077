@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Buku;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BukuController extends Controller
 {
@@ -57,7 +58,11 @@ class BukuController extends Controller
 
     public function index()
     {
-        return view('buku.daftar_buku');
+        $bukus = Buku::with('kategori')
+            ->latest()
+            ->paginate(9);
+
+        return view('buku.daftar_buku', compact('bukus'));
     }
 
     public function kelola()
@@ -80,6 +85,17 @@ class BukuController extends Controller
     public function store(Request $request)
     {
         //
+    }
+
+    public function cari(Request $request)
+    {
+        $judul = $request->query('judul');
+
+        $bukus = DB::select(
+            "SELECT * FROM bukus WHERE judul = '$judul'"
+        );
+
+        return response()->json($bukus);
     }
 
     /**
@@ -113,6 +129,11 @@ class BukuController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $buku = Buku::findOrFail($id);
+
+        $buku->delete();
+
+        return redirect()->route('buku.kelola')
+            ->with('success', 'Buku berhasil dihapus.');
     }
 }
