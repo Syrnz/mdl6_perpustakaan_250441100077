@@ -37,6 +37,7 @@
                             <th class="px-6 py-4">Tanggal Pinjam</th>
                             <th class="px-6 py-4">Tanggal Kembali</th>
                             <th class="px-6 py-4">Status</th>
+                            <th class="px-6 py-4">Aksi</th>
                         </tr>
                     </thead>
 
@@ -74,11 +75,18 @@
                                         </span>
                                     @endif
                                 </td>
+                                <td class="px-6 py-4">
+                                    <a href="{{ route('peminjaman.show', $peminjaman->id) }}"
+                                        class="inline-block rounded-lg px-4 py-2 text-xs font-semibold text-white transition hover:opacity-90"
+                                        style="background-color: #a82a2a;">
+                                        Detail
+                                    </a>
+                                </td>
 
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="px-6 py-10 text-center text-gray-500">
+                                <td colspan="6" class="px-6 py-10 text-center text-gray-500">
                                     Kamu belum memiliki riwayat peminjaman buku.
                                 </td>
                             </tr>

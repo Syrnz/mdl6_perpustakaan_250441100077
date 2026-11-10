@@ -24,10 +24,10 @@ Route::middleware('auth')->group(function () {
         ->middleware('can:kelola-buku')
         ->name('buku.destroy');
 
-    // Detail Peminjaman (Pengujian IDOR)
+    // Detail Peminjaman
     Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])
         ->name('peminjaman.show');
-
+        
     Route::get('/buku', [BukuController::class, 'index'])
         ->middleware('permission:lihat daftar buku')
         ->name('buku.index');

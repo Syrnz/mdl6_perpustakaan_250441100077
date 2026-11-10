@@ -8,6 +8,7 @@ use App\Models\Buku;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Gate;
 
 class PeminjamanController extends Controller
 {
@@ -31,8 +32,10 @@ class PeminjamanController extends Controller
 
     public function show($id)
     {
-        $peminjaman = Peminjaman::with(['anggota', 'buku'])
+        $peminjaman = Peminjaman::with(['anggota.user', 'buku'])
             ->findOrFail($id);
+
+        Gate::authorize('view', $peminjaman);
 
         return view('peminjaman.detail', compact('peminjaman'));
     }
