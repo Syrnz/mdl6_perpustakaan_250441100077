@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function () {
     // Detail Peminjaman
     Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])
         ->name('peminjaman.show');
-        
+
     Route::get('/buku', [BukuController::class, 'index'])
         ->middleware('permission:lihat daftar buku')
         ->name('buku.index');
@@ -130,6 +130,10 @@ Route::middleware('auth')->group(function () {
     Route::put('/admin/users/{id}/role', [UserController::class, 'updateRole'])
         ->middleware('permission:kelola role pengguna')
         ->name('users.updateRole');
+});
+
+Route::get('/test-error', function () {
+    throw new \RuntimeException('Ini adalah pesan error untuk pengujian keamanan.');
 });
 
 require __DIR__ . '/auth.php';

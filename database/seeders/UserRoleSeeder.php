@@ -9,11 +9,11 @@ class UserRoleSeeder extends Seeder
 {
     public function run(): void
     {
-        $admin = User::firstOrCreate(
+        $admin = User::UpdateOrCreate(
             ['email' => 'admin@ribuan-kata.com'],
             [
                 'name' => 'Admin Perpustakaan',
-                'password' => 'password123',
+                'password' => 'admin123rahasia',
             ]
         );
 
