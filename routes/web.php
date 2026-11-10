@@ -19,27 +19,26 @@ Route::middleware('auth')->group(function () {
     Route::get('/buku-cari', [BukuController::class, 'cari'])
         ->name('buku.cari');
 
-    // Hapus Buku (Pengujian CSRF)
+    // Hapus Buku (Admin dan Petugas)
     Route::delete('/buku/{id}', [BukuController::class, 'destroy'])
+        ->middleware('can:kelola-buku')
         ->name('buku.destroy');
 
     // Detail Peminjaman (Pengujian IDOR)
     Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])
         ->name('peminjaman.show');
 
-    // Daftar Buku (Admin, Petugas, Siswa)
     Route::get('/buku', [BukuController::class, 'index'])
         ->middleware('permission:lihat daftar buku')
         ->name('buku.index');
 
-    // Detail Buku (Admin, Petugas, Siswa)
     Route::get('/buku/{id}', [BukuController::class, 'show'])
         ->middleware('permission:lihat daftar buku')
         ->name('buku.detail');
 
     // Kelola Buku (Admin dan Petugas)
     Route::get('/admin/buku', [BukuController::class, 'kelola'])
-        ->middleware('permission:kelola data buku')
+        ->middleware('can:kelola-buku')
         ->name('buku.kelola');
 
     // Dashboard Admin

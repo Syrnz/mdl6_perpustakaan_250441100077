@@ -11,26 +11,27 @@ use App\Http\Controllers\Api\RekapController;
 //     Route::apiResource('buku', BukuController::class);
 // });
 
+
 Route::middleware('auth:sanctum')->group(function () {
 
-    // API Buku
+    // API Buku: melihat daftar dan detail
     Route::get('/buku', [BukuController::class, 'index'])
         ->middleware('permission:lihat daftar buku');
 
     Route::get('/buku/{id}', [BukuController::class, 'show'])
         ->middleware('permission:lihat daftar buku');
 
-    Route::post('/buku', [BukuController::class, 'store'])
-        ->middleware('permission:kelola data buku');
+    // API Buku: mengelola data buku
+    Route::middleware('can:kelola-buku')->group(function () {
 
-    Route::put('/buku/{id}', [BukuController::class, 'update'])
-        ->middleware('permission:kelola data buku');
+        Route::post('/buku', [BukuController::class, 'store']);
 
-    Route::patch('/buku/{id}', [BukuController::class, 'update'])
-        ->middleware('permission:kelola data buku');
+        Route::put('/buku/{id}', [BukuController::class, 'update']);
 
-    Route::delete('/buku/{id}', [BukuController::class, 'destroy'])
-        ->middleware('permission:kelola data buku');
+        Route::patch('/buku/{id}', [BukuController::class, 'update']);
+
+        Route::delete('/buku/{id}', [BukuController::class, 'destroy']);
+    });
 
     // API Rekap
     Route::get('/rekap/buku-per-kategori', [RekapController::class, 'bukuPerKategori'])

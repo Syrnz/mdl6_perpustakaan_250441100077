@@ -14,7 +14,7 @@
                 </p>
             </div>
 
-            @can('kelola data buku')
+            @can('kelola-buku')
                 <div class="mb-8 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
                     <h3 class="mb-6 text-xl font-bold text-gray-800">Tambah Buku</h3>
 
@@ -119,7 +119,7 @@
         const pagination = document.getElementById('pagination');
         const infoHalaman = document.getElementById('info-halaman');
 
-        const bolehKelolaBuku = @json(auth()->user()->can('kelola data buku'));
+        const bolehKelolaBuku = @json(auth()->user()->can('kelola-buku'));
 
         let halamanAktif = 1;
 
@@ -253,21 +253,20 @@
                             </button>
 
                             ${bolehKelolaBuku ? `
-                                    <button
-                                        type="button"
-                                        onclick="editBuku(${buku.id})"
-                                        class="rounded-lg bg-yellow-500 px-4 py-2 font-medium text-white transition hover:bg-yellow-600">
-                                        Edit
-                                    </button>
-
-                                    <button
-                                        type="button"
-                                        onclick="hapusBuku(${buku.id})"
-                                        class="rounded-lg bg-red-600 px-4 py-2 font-medium text-white hover:bg-red-700">
-                                        Hapus
-                                    </button>
-                                ` : ''}
-
+                                        <button
+                                            type="button"
+                                            onclick="editBuku(${buku.id})"
+                                            class="rounded-lg bg-yellow-500 px-4 py-2 font-medium text-white transition hover:bg-yellow-600">
+                                            Edit
+                                        </button>
+                                        
+                                        <button
+                                            type="button"
+                                            onclick="hapusBuku(${buku.id})"
+                                            class="rounded-lg bg-red-600 px-4 py-2 font-medium text-white hover:bg-red-700">
+                                            Hapus
+                                        </button>
+                                    ` : ''}
                         </div>
                     </td>
                 </tr>
